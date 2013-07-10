@@ -1,9 +1,11 @@
+
 var express = require('express');
+var fs = require('fs');
 
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-    response.send(buffer.toString());
+    response.send(hw);
 });
 
 
@@ -14,4 +16,4 @@ app.listen(port, function() {
 
 var rfc = fs.readFileSync("index.html");
 var buffer = new Buffer(rfc, "utf-8");
-//var hw = buffer.toString();
+var hw = buffer.toString();
