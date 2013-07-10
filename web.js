@@ -2,12 +2,8 @@ var express = require('express');
 
 var app = express.createServer(express.logger());
 
-//app.get('/', function(request, response) {
-//  response.send(buffer.toString());
-//});
-
 app.get('/', function(request, response) {
-    response.send(buffer.toString();
+    response.send(buffer.toString());
 });
 
 
@@ -16,6 +12,6 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-var rfc = fs.readFileSync("index.html")
-
-var buffer = new Buffer(rfc, "utf-8")
+var rfc = fs.readFileSync("index.html");
+var buffer = new Buffer(rfc, "utf-8");
+//var hw = buffer.toString();
