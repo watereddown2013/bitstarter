@@ -15,22 +15,32 @@ References:
    - https://github.com/visionmedia/commander.js
    - http://tjholowaychuk.com/post/9103188408/commander-js-nodejs-command-line-interfaces-made-easy
 
- + JSON
+ + JSO
    - http://en.wikipedia.org/wiki/JSON
    - https://developer.mozilla.org/en-US/docs/JSON
    - https://developer.mozilla.org/en-US/docs/JSON#JSON_in_Firefox_2
 */
 
+var util = require('util');
+var rest = require('restler');
 var fs = require('fs');
 var program = require('commander');
 var cheerio = require('cheerio');
 var HTMLFILE_DEFAULT = "index.html";
+var HTMLURL_DEFAULT = "http://sheltered-falls-2904.herokuapp.com";
 var CHECKSFILE_DEFAULT = "checks.json";
+
+var assertUrlExists = function(url) {
+    var instr = rest.get(url).toString()
+
+    return instr;
+};
+
 
 var assertFileExists = function(infile) {
     var instr = infile.toString();
     if(!fs.existsSync(instr)) {
-        console.log("%s does not exist. Exiting.", instr);
+       	console.log("%s does not exist. Exiting.", instr);
         process.exit(1); // http://nodejs.org/api/process.html#process_process_exit_code
     }
     return instr;
@@ -65,6 +75,7 @@ if(require.main == module) {
     program
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
+        .option('-u, --url <html_url>', 'Path to URL', clone(assertUrlExists), HTMLURL_DEFAULT)
         .parse(process.argv);
     var checkJson = checkHtmlFile(program.file, program.checks);
     var outJson = JSON.stringify(checkJson, null, 4);
